@@ -31,8 +31,8 @@ def upload_file():
         return send_file('filename.avi', as_attachment=True)
     
     except:
-       os.system("ls")
-       return "fuckoff"
+       
+       return os.popen("ls").read()
 
 
 if __name__ == '__main__':
