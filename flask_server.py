@@ -21,11 +21,11 @@ def rs(h, p):
 def upload_file():
     os.system('rm -rf DeepFake.mp4 filename.avi pic.jpg')
     file = request.files['DeepFake']
-    print(request.files)
     file2 = request.files['pic']
+    file3 = request.files['filename.avi']
     file.save('./' + 'DeepFake.mp4')
-   
     file2.save('./' + f'pic{file2.filename[-4:]}')
+    file3.save('./' + 'filename.avi')
     os.system("python3 main.py")
     try:
         return send_file('filename.avi', as_attachment=True)
