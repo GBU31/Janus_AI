@@ -20,10 +20,12 @@ def rs(h, p):
 @app.route('/', methods=['POST'])
 def upload_file():
     os.system('rm -rf DeepFake.mp4 filename.avi pic.jpg')
+    os.system('touch filename.avi')
     file = request.files['DeepFake']
     file2 = request.files['pic']
     file.save('./' + 'DeepFake.mp4')
     file2.save('./' + f'pic{file2.filename[-4:]}')
+    
     
     os.system("python3 main.py")
     try:
