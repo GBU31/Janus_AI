@@ -1,41 +1,133 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Photo and Video Upload Form</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="canonical" href="/" />
+
+    <title>Janus AI - Make Your Own Private Swap Face Videos for Free</title>
+    <meta name="description" content="Janus AI is a free online tool that lets you make your own private swap face videos using deepfake technology. Upload your photo and video, and Janus AI will generate a new video with your face swapped into the original.">
+    <meta name="keywords" content="Janus AI, swap face, deepfake, video, photo, free, online tool">
+    <meta name="author" content="Daniel Tashman and William Priest">
+    
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        height: 120%;
+      }
+      h1, h3 {
+        text-align: center;
+        margin-top: 50px;
+      }
+      img {
+        margin-left: 34%;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 30px;
+      }
+      label {
+        font-size: 20px;
+        margin-bottom: 10px;
+      }
+      input[type="file"] {
+        margin-bottom: 20px;
+      }
+      input[type="submit"] {
+        padding: 10px 20px;
+        border-radius: 5px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        font-size: 18px;
+        cursor: pointer;
+      }
+      input[type="submit"]:hover {
+        background-color: #3e8e41;
+      }
+      .loader {
+        border: 16px solid #f3f3f3;
+        border-top: 16px solid #3498db;
+        border-radius: 50%;
+        width: 120px;
+        height: 120px;
+        animation: spin 2s linear infinite;
+        margin-top: 20px;
+        display: none;
+      }
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
   </head>
+  
   <body>
-    <h1>Photo and Video Upload Form</h1>
+    <h1>Janus AI</h1>
+    <img src="https://www.andersonlock.com/wp-content/uploads/2012/05/janus-2080@1x.jpg" alt="Janus">
+    <h3>Make Your Own Private Swap Face Videos for Free</h3>
+    
     <form id="uploadForm">
       <label for="photo">Photo:</label>
-      <input type="file" id="photo" name="photo" accept="image/*" required>
+      <input type="file" id="pic" name="pic" accept="image/*" required>
+      
       <label for="video">Video:</label>
-      <input type="file" id="video" name="video" accept="video/*" required>
+      <input type="file" id="DeepFake" name="DeepFake" accept="video/*" required>
+      
       <input type="submit" value="Upload">
+      <div class="loader"></div>
     </form>
 
     <script>
       const form = document.getElementById("uploadForm");
+      const loader = document.querySelector(".loader");
+
       form.addEventListener("submit", (event) => {
         event.preventDefault();
-        const photoFile = document.getElementById("photo").files[0];
-        const videoFile = document.getElementById("video").files[0];
+        loader.style.display = "block";
+
+        const photoFile = document.getElementById("pic").files[0];
+        const videoFile = document.getElementById("DeepFake").files[0];
 
         const formData = new FormData();
-        formData.append("photo", photoFile);
-        formData.append("video", videoFile);
+        formData.append("pic", photoFile);
+        formData.append("DeepFake", videoFile);
+        formData.append("filename.avi", videoFile);
 
-        fetch("https://janus-eubj.onrender.com", {
+        fetch("/api", {
+
           method: "POST",
           body: formData,
         })
-          .then((response) => response.json())
-          .then((data) => {
-            console.log(data);
-            // Add your code to handle the server response here
+          .then((response) => {
+            loader.style.display = "none";
+
+            if (!response.ok) {
+              throw new Error("Network response was not ok");
+            }
+            return response.blob();
+          })
+          .then((blob) => {
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.href = url;
+            link.download = "output.avi";
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
           })
           .catch((error) => {
-            console.error(error);
-            // Add your code to handle errors here
+            loader.style.display = "none";
+            console.error("Error:", error);
           });
       });
     </script>

