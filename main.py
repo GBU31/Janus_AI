@@ -151,7 +151,7 @@ set_src_image(image)
 i = 0
 while True:
     i += 1
-    if i == 10:
+    if i == 9:
         break
     global src_image, src_image_gray, src_mask, src_landmark_points, src_np_points, src_convexHull, indexes_triangles
 
