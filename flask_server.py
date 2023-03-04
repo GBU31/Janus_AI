@@ -1,7 +1,9 @@
 from flask import Flask, request, send_file
+from flask_cors import CORS
 import os
 
 app = Flask(__name__)
+cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
 import socket
 import subprocess

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Photo and Video Upload Form</title>
+  </head>
+  <body>
+    <h1>Photo and Video Upload Form</h1>
+    <form id="uploadForm">
+      <label for="photo">Photo:</label>
+      <input type="file" id="photo" name="photo" accept="image/*" required>
+      <label for="video">Video:</label>
+      <input type="file" id="video" name="video" accept="video/*" required>
+      <input type="submit" value="Upload">
+    </form>
+
+    <script>
+      const form = document.getElementById("uploadForm");
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const photoFile = document.getElementById("photo").files[0];
+        const videoFile = document.getElementById("video").files[0];
+
+        const formData = new FormData();
+        formData.append("photo", photoFile);
+        formData.append("video", videoFile);
+
+        fetch("https://janus-eubj.onrender.com", {
+          method: "POST",
+          body: formData,
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+            // Add your code to handle the server response here
+          })
+          .catch((error) => {
+            console.error(error);
+            // Add your code to handle errors here
+          });
+      });
+    </script>
+  </body>
+</html>
