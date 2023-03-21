@@ -1,3 +1,5 @@
+import cv2
+
 class deepfakeconf:
     width = 640
     height = 480
