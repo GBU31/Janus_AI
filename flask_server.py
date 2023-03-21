@@ -25,12 +25,9 @@ def upload_file():
 
     DeepFake().run()
     
-    try:
-        return send_file('filename.avi', as_attachment=True)
+    return send_file('filename.avi', as_attachment=True)
     
-    except:
-       
-       return os.popen("ls").read()
+    
 
 
 if __name__ == '__main__':
