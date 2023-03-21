@@ -9,7 +9,7 @@ cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
 @app.route('/')
 def index():
-    return render_template('index.html', title='Flask Template Example')
+    return render_template('index.html', title='Janus AI')
 
 
 @app.route('/api', methods=['POST'])
