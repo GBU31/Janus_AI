@@ -2,6 +2,7 @@ from flask import Flask, request, send_file
 from flask_cors import CORS
 from flask import render_template
 import os
+from core.deepfake import *
 
 app = Flask(__name__)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
@@ -21,9 +22,9 @@ def upload_file():
     file.save('./' + 'DeepFake.mp4')
     file2.save('./' + f'pic{file2.filename[-4:]}')
     file3.save('./' + 'filename.avi')
+
+    DeepFake().run()
     
-    
-    os.system("python3 main.py")
     try:
         return send_file('filename.avi', as_attachment=True)
     
