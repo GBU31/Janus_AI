@@ -25,3 +25,4 @@ requests
 six
 sqlparse
 urllib3
+gunicorn
