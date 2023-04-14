@@ -27,9 +27,9 @@ class MyModelViewSet(viewsets.ModelViewSet):
 
         serializer = FileSerializer(data=request.data)
         if serializer.is_valid():
-            print(str(request.data["video"]) in os.popen('ls videos').read().split('\n'))
-            print(request.data["video"])
             serializer.save()
+            print(str(request.data["video"]) in os.popen('ls videos').read().split('\n'))
+            print(str(request.data["image"]) in os.popen('ls images').read().split('\n'))
             os.system(f'python3 main/DeepFake/main.py videos/{str(request.data["video"])} images/{str(request.data["image"])} output/{random_string}.avi')
             response = FileResponse(open('output/'+random_string + '.avi', 'rb'))
             response['Content-Disposition'] = f'attachment; filename=output/"{random_string}.avi"'
