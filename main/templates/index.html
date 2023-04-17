@@ -110,7 +110,7 @@
         formData.append("video", videoFile);
         formData.append("filename.avi", videoFile);
 
-        fetch("/api", {
+        fetch("http://13.49.175.185:8000/api", {
 
           method: "POST",
           body: formData,
