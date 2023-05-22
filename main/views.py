@@ -35,5 +35,6 @@ class MyModelViewSet(viewsets.ModelViewSet):
             print(f"{random_string}.avi" in os.popen('ls output').read().split('\n'))
             response = FileResponse(open('output/'+random_string + '.avi', 'rb'))
             response['Content-Disposition'] = f'attachment; filename=output/"{random_string}.avi"'
+            os.system(f'rm -rf videos/{str(request.data["video"])} images/{str(request.data["image"])} output/{random_string}.avi')
             return response
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
