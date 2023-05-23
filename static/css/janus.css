@@ -1,0 +1,148 @@
+@import "https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css";
+    * {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  
+  
+}
+
+.loader {
+  border: 16px solid #f3f3f3;
+  border-top: 16px solid #3498db;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+  margin-top: 20px;
+  display: none;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.slogan {
+  margin-bottom: 20px;
+  font-size: 20px;
+  text-align: center;
+}
+
+.uploads {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.forms {
+  width: 300px;
+  margin-right: 20px;
+  box-shadow: -11px 10px 5px 1px rgba(0, 0, 0, 0.98);
+  border-radius: 25px;
+  background-color: #e4e1d4;
+  border: solid 2px black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.forms:last-child {
+  margin-right: 0;
+}
+
+.forms input[type="file"] {
+  display: none;
+}
+
+.forms label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+.forms img {
+  width: 100px;
+  cursor: pointer;
+}
+
+.forms span {
+  margin-top: 10px;
+}
+
+button {
+  width: 150px;
+  height: 75px;
+  margin-top: 50px;
+  border: none;
+  border-radius: 25px;
+  background-color: #d20b0c;
+  box-shadow: 15px 15px 5px -9px rgba(0, 0, 0, 0.98);
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+
+}
+
+
+header {
+  background-color: #f2e4a2;
+  display: flex;
+  padding: 10px;
+  height: 15vh;
+  align-items: center;
+}
+
+.logoCon {
+  flex: 1;
+  
+  padding-top: 10px;
+  font-size: 32px;
+}
+
+.janusLogo {
+  font-size: 28px;
+  font-weight: bold;
+ 
+}
+
+.janusImg {
+
+  width: 80px;
+  height: 80px;
+}
+
+@media screen and (max-width: 500px) {
+  header {
+    flex-direction: row;
+    padding-left: 0px;
+  }
+  .slogan {
+    font-size: 15px;
+  }
+  .uploads {
+    flex-direction: column;
+  }
+  .forms {
+    width: 150px;
+  }
+  .janusImg {
+    display: flex; 
+    justify-content: center;
+    
+  }
+  .logoCon {
+    font-size: 20px;
+    margin-right: 100%;
+  }
+}

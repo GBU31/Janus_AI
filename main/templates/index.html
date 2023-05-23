@@ -1,172 +1,25 @@
+{% load static %}
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="background-color: #f2e4a2;">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Janus AI: Deepfake Video Editor</title>
     <meta name="description" content="The best free deepfake video editor online">
-   
+    <link rel="stylesheet" type="text/css" href="{% static '/css/janus.css' %}">
+    <link rel="icon" href="{% static 'img/janus.ico' %}" type="image/x-icon">
 
 </head>
-<style>
 
-@import "https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css";
-    * {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
-
-body {
-  font-family: Arial, sans-serif;
-}
-
-.loader {
-  border: 16px solid #f3f3f3;
-  border-top: 16px solid #3498db;
-  border-radius: 50%;
-  width: 120px;
-  height: 120px;
-  animation: spin 2s linear infinite;
-  margin-top: 20px;
-  display: none;
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-.slogan {
-  margin-bottom: 20px;
-  font-size: 20px;
-  text-align: center;
-}
-
-.uploads {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 50px;
-}
-
-.forms {
-  width: 300px;
-  margin-right: 20px;
-  box-shadow: -11px 10px 5px 1px rgba(0, 0, 0, 0.98);
-  border-radius: 25px;
-  background-color: #e4e1d4;
-  border: solid 2px black;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.forms:last-child {
-  margin-right: 0;
-}
-
-.forms input[type="file"] {
-  display: none;
-}
-
-.forms label {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  cursor: pointer;
-}
-
-.forms img {
-  width: 100px;
-  cursor: pointer;
-}
-
-.forms span {
-  margin-top: 10px;
-}
-
-button {
-  width: 150px;
-  height: 75px;
-  margin-top: 50px;
-  border: none;
-  border-radius: 25px;
-  background-color: #d20b0c;
-  box-shadow: 15px 15px 5px -9px rgba(0, 0, 0, 0.98);
-  color: white;
-  font-size: 16px;
-  font-weight: bold;
-
-}
-
-
-header {
-  background-color: #f2e4a2;
-  display: flex;
-  padding: 10px;
-  height: 15vh;
-  align-items: center;
-}
-
-.logoCon {
-  flex: 1;
-  
-  padding-top: 10px;
-  font-size: 32px;
-}
-
-.janusLogo {
-  font-size: 28px;
-  font-weight: bold;
- 
-}
-
-.janusImg {
-  width: 120px;
-  height: 120px;
-}
-
-@media screen and (max-width: 500px) {
-  header {
-    flex-direction: row;
-    padding-left: 0px;
-  }
-  .slogan {
-    font-size: 15px;
-  }
-  .uploads {
-    flex-direction: column;
-  }
-  .forms {
-    width: 150px;
-  }
-  .janusImg {
-    display: flex; 
-    justify-content: center;
-    
-  }
-  .logoCon {
-    font-size: 20px;
-    margin-right: 100%;
-  }
-}
-
-
-</style>
 <body>
-    <nav>
-        <header>
-            <img class="janusImg" src="https://images.theconversation.com/files/199861/original/file-20171219-27585-hcs7qg.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=600&h=720&fit=crop&dpr=1">
-        </header>
-    </nav>
+   
+   
         <section style="background-color: #f2e4a2; height: 85vh;  display: flex; justify-content: center; align-items: center; flex-direction: column;">
-          <h1 style="text-align: center;" class="title">Janus AI</h1>  
+          <img class="janusImg" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAk95UYQhx9Y8uLbPY8EeLyC7CFP4PmMTbqyRMpTw8rUHf2SJZe03mUjpS1u4JBsz4bAY&usqp=CAU">
+          <br><br>
+          <h1 style="text-align: center;" class="title">Janus AI <span class="tag is-info">Beta</span></h1>  
           <p class="slogan" >Make Your Own Private Swap Face Videos For Free</p>
             <div class="uploads">
                 <article style="display: flex; height: 100%;  display: flex; ">
@@ -205,68 +58,5 @@ header {
      
     
 </body>
-<script>
-   
-   const videoUpload = document.querySelector("#video-upload");
-const videoName = document.querySelector("#video-name");
-const imageUpload = document.querySelector("#image-upload");
-const imageName = document.querySelector("#image-name");
-const deepFake = document.querySelector("#deep-fake");
-const loader = document.querySelector("#loader");
-let selectedVideo = videoUpload.files[0];
-let selectedImage = imageUpload.files[0];
-loader.style.display = "none";
-videoUpload.onchange = () => {
-  selectedVideo = videoUpload.files[0];
-  videoName.innerText = selectedVideo.name;
-};
-
-imageUpload.onchange = () => {
-  selectedImage = imageUpload.files[0];
-  imageName.innerText = selectedImage.name;
-};
-
-deepFake.addEventListener("click", () => {
-  if (selectedVideo && selectedImage) {
-    loader.style.display = "block";
-    deepFake.style.display = "none";
-    const formData = new FormData();
-    formData.append("image", selectedImage);
-    formData.append("video", selectedVideo);
-    formData.append("filename.avi", selectedVideo);
-
-    fetch("/api", {
-      method: "POST",
-      body: formData,
-    })
-      .then((response) => {
-        loader.style.display = "none";
-
-        if (!response.ok) {
-          return response;
-        }
-        return response.blob();
-      })
-      .then((blob) => {
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement("a");
-        link.href = url;
-        link.download = "output.avi";
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        URL.revokeObjectURL(url);
-        deepFake.style.display = "block";
-      })
-      .catch((error) => {
-        loader.style.display = "none";
-        console.error("Error:", error);
-        deepFake.style.display = "block";
-      });
-  }
-});
-
-
-    
-</script>
+<script src="{%static 'js/swap.js'%}"></script>
 </html>
