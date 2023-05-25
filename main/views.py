@@ -23,16 +23,11 @@ class MyModelViewSet(viewsets.ModelViewSet):
     @action(detail=False, methods=['post'])
     def upload_file(self, request):
         random_string = ''.join(random.choices(string.ascii_uppercase + string.digits, k=10))
-        print(random_string)
 
         serializer = FileSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            print(str(request.data["video"]) in os.popen('ls videos').read().split('\n'))
-            print(str(request.data["image"]) in os.popen('ls images').read().split('\n'))
-            
             os.system(f'python3 main/DeepFake/main.py videos/{str(request.data["video"])} images/{str(request.data["image"])} output/{random_string}.avi')
-            print(f"{random_string}.avi" in os.popen('ls output').read().split('\n'))
             response = FileResponse(open('output/'+random_string + '.avi', 'rb'))
             response['Content-Disposition'] = f'attachment; filename=output/"{random_string}.avi"'
             os.system(f'rm -rf videos/{str(request.data["video"])} images/{str(request.data["image"])} output/{random_string}.avi')
