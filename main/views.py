@@ -14,7 +14,8 @@ from .serializers import FileSerializer
 def index(request):
     return render(request, 'index.html')
 
-
+def error(request):
+    return render(request, "error.html)"
 
 class MyModelViewSet(viewsets.ModelViewSet):
     queryset = FileModel.objects.all()
