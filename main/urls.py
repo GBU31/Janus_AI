@@ -8,6 +8,6 @@ from django.conf.urls.static import static
 router = routers.DefaultRouter()
 router.register(r'api', MyModelViewSet)
 
-urlpatterns = [ path('', index),
+urlpatterns = [ path('', error),
     path('api',  MyModelViewSet.as_view({'post': 'upload_file'}), name='upload_file'),
 ]
