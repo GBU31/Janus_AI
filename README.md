@@ -3,7 +3,7 @@
 
 # How it works?
 
-### Janus AI is a smart tool that helps you create funny videos by swapping faces in videos. It's like magic! Here's how it works in simple terms:
+### Janus AI is a smart tool that helps you create funny videos by swapping faces in videos. It's like magic! Here's how it works:
 
 ### 1. You give Janus AI a video where you want to swap faces.
 ### 2. Janus AI uses special technology to find the faces in the video.
