@@ -146,11 +146,12 @@ def set_src_image(image):
     indexes_triangles = get_triangles(convexhull=src_convexHull,
                                                   landmarks_points=src_landmark_points,
                                                   np_points=src_np_points)
-
+i = 0
 try:
     set_src_image(image)
 
-    while True:
+    while i < 2:
+        i += 1
         global src_image, src_image_gray, src_mask, src_landmark_points, src_np_points, src_convexHull, indexes_triangles
 
         _, dest_image = cap.read()

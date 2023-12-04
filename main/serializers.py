@@ -4,4 +4,4 @@ from .models import FileModel
 class FileSerializer(serializers.ModelSerializer):
     class Meta:
         model = FileModel
-        fields = ['image', 'video']
+        fields = '__all__'
