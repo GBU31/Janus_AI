@@ -6,13 +6,6 @@ Janus AI is a Django-based application leveraging the capabilities of Mediapipe 
 
 This project demonstrates how to perform face swapping in real-time videos using facial landmarks. It uses the `mediapipe` library to detect facial landmarks and `OpenCV` for image processing.
 
-## Requirements
-
-- Python 3.10
-- OpenCV
-- NumPy
-- Mediapipe
-
 ## Getting Started
 
    Clone the repository:
