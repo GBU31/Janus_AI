@@ -1,16 +1,50 @@
-# Janus_AI
-### make your own private swap face videos for free -> https://janus-eubj.onrender.com/
+# Janus AI - Face Swapping using Mediapipe and OpenCV
 
-# How it works?
+Janus AI is a Django-based application leveraging the capabilities of Mediapipe and OpenCV to facilitate face swapping in both images and video.
 
-### Janus AI is a smart tool that helps you create funny videos by swapping faces in videos. It's like magic! Here's how it works:
+## Overview
 
-### 1. You give Janus AI a video where you want to swap faces.
-### 2. Janus AI uses special technology to find the faces in the video.
-### 3. Then, it draws some special points on the faces to understand them better.
-### 4. Janus AI takes these points and carefully swaps the faces, making them switch places.
-### 5. The result is a new video that makes people laugh when they see the faces swapped!
+This project demonstrates how to perform face swapping in real-time videos using facial landmarks. It uses the `mediapipe` library to detect facial landmarks and `OpenCV` for image processing.
 
-![Screenshot 2023-06-13 041611](https://github.com/brookehorizon/Janus_AI/assets/86805843/cbe8a241-fa29-4c25-9e4f-c90be2cdecd4)
+## Requirements
 
+- Python 3.10
+- OpenCV
+- NumPy
+- Mediapipe
 
+## Getting Started
+
+   Clone the repository:
+   
+   <pre>git clone https://github.com/GBU31/Janus_AI.git</pre>
+   
+   Install the required dependencies:
+   
+   <pre>pip install -r requirements.txt</pre>
+   
+   Apply migrations:
+   
+   <pre>python3 manage.py migrate</pre>
+   
+   Run the Django server:
+   <pre>python3 manage.py runserver</pre>
+   
+## API Usage
+### Example using cURL
+<pre>
+curl -X POST -H "Content-Type: multipart/form-data" -F "image_one=@./image_one.jpg" -F "image_two=@./image_two.jpg" http://localhost:8000/api
+</pre>
+### Example using Python requests
+
+```python
+import requests
+
+url = "http://localhost:8000/api"
+files = {
+    "image_one": ("image_one.jpg", open("image_one.jpg", "rb")),
+    "image_two": ("image_two.jpg", open("image_two.jpg", "rb")),
+}
+
+response = requests.post(url, files=files)
+print(response.json())```
