@@ -29,14 +29,30 @@ class MyModelViewSet(viewsets.ModelViewSet):
         if serializer.is_valid():
             serializer.save()
 
-            image_one = request.data["image_one"]
-            image_two =  request.data["image_two"]
-        
-            os.system(f'python3 main/DeepFake/main.py images_two/{image_two} images/{image_one} output/{random_string}.png')
-            response = FileResponse(open('output/'+random_string + '.png', 'rb'))
-            response['Content-Disposition'] = f'attachment; filename=output/"{random_string}.png"'
-            os.system(f'rm -rf images_two/{image_two} images/{image_one} output/{random_string}.png')
-            return response
             
-                # return Response(serializer.errors, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            image_one = request.data["image_one"]
+            deepFakeType = request.data["type"]
+
+            if deepFakeType == "image":
+
+                image_two =  request.data["image_two"]
+        
+                os.system(f'python3 main/DeepFake/main.py images_two/{image_two} images/{image_one} output/{random_string}.png')
+                response = FileResponse(open('output/'+random_string + '.png', 'rb'))
+                response['Content-Disposition'] = f'attachment; filename=output/"{random_string}.png"'
+                os.system(f'rm -rf images_two/{image_two} images/{image_one} output/{random_string}.png')
+                return response
+                
+                    # return Response(serializer.errors, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+            if deepFakeType == "video":
+
+                vid_file = request.data["vid_file"]
+                
+                os.system(f'python3 main/DeepFake/main.py vids/{vid_file} images/{image_one} output/{random_string}.avi')
+                response = FileResponse(open('output/'+random_string + '.avi', 'rb'))
+                response['Content-Disposition'] = f'attachment; filename=output/"{random_string}.avi"'
+                os.system(f'rm -rf vids/{vid_file} images/{image_one} output/{random_string}.avi')
+                return response
+
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
